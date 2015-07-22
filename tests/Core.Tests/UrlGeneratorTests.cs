@@ -66,6 +66,22 @@ namespace RimDev.Supurlative.Tests
             Assert.Equal("http://localhost:8000/foo/1", result);
         }
 
+        [Fact]
+        public void Ignores_get_only_properties()
+        {
+            var result = Generator.Generate("foo.show", new GetonlyRequest { Id = 1 });
+            Assert.Equal("http://localhost:8000/foo/1", result);
+        }
+
+        public class GetonlyRequest
+        {
+            public int Id { get; set; }
+
+            public string Ignore {
+                get { return "ignore-me"; }
+            }
+        }
+
         public class TestNestedClass
         {
             public int Id { get; set; }
